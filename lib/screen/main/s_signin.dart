@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 
+// Sign in screen that comes before the Main Screen if user did not sign in.
+
 class SignInScreen extends StatefulWidget {
   final VoidCallback? onSignIn;
 
@@ -102,11 +104,11 @@ class _SignInScreenState extends State<SignInScreen> {
                   height: 50,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: context.appColors.seedColor, // Button color
-                      foregroundColor: Colors.white, // Text color
+                      backgroundColor: context.appColors.seedColor,
+                      foregroundColor: Colors.white,
                       minimumSize: const Size(double.infinity, 50),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10), // Less rounded corners
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                     onPressed: _signIn,

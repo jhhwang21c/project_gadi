@@ -1,20 +1,33 @@
 import 'package:GADI/auth_checker.dart';
-import 'package:GADI/screen/main/s_signin.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:GADI/common/dart/extension/context_extension.dart';
 import 'package:GADI/screen/main/tab/home/f_best.dart';
 import 'package:GADI/screen/main/tab/home/f_recommendation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flag/flag_widget.dart';
+import 'package:algolia_helper_flutter/algolia_helper_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:live_currency_rate/live_currency_rate.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeFragment extends StatelessWidget {
+class HomeFragment extends StatefulWidget {
   const HomeFragment({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<HomeFragment> createState() => _HomeFragmentState();
+}
+
+class _HomeFragmentState extends State<HomeFragment> {
+
+  final _productsSearcher = HitsSearcher(applicationID: 'LSLPKC60FN',
+      apiKey: '4bad0586f30077a4b49e3a1d55d181cb',
+      indexName: 'gadi_artworks');
+  final _searchTextController = TextEditingController();
+
+  Stream<SearchMetadata> get _searchMetadata => _productsSearcher.responses.map(SearchMetadata.fromResponse);
+
 
   Future<String> getTopArtworkUrl() async {
     final snapshot = await FirebaseFirestore.instance
@@ -69,6 +82,20 @@ class HomeFragment extends StatelessWidget {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _searchTextController.addListener(() => _productsSearcher.query(_searchTextController.text));
+  }
+
+  @override
+  void dispose() {
+    _searchTextController.dispose();
+    _productsSearcher.dispose();
+    super.dispose();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     final width1 = MediaQuery.of(context).size.width * 0.90;
     final width2 = MediaQuery.of(context).size.width * 0.43;
@@ -100,6 +127,7 @@ class HomeFragment extends StatelessWidget {
                 borderRadius: BorderRadius.circular(25.0),
               ),
               child: TextField(
+                controller: _searchTextController,
                 decoration: InputDecoration(
                   hintText: "검색어를 입력하세요",
                   fillColor: context.appColors.sub1,
@@ -112,11 +140,21 @@ class HomeFragment extends StatelessWidget {
                   contentPadding:
                       const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
                 ),
-                onSubmitted: (String query) {
-                  // Implement search logic here
-                },
               ),
             ),
+            if (_searchTextController.text.isNotEmpty)
+              StreamBuilder<SearchMetadata>(
+                stream: _searchMetadata,
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return const SizedBox.shrink();
+                  }
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('${snapshot.data!.nbHits} hits'),
+                  );
+                },
+              ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: GestureDetector(
@@ -298,5 +336,25 @@ class HomeFragment extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class SearchMetadata {
+  final int nbHits;
+
+  const SearchMetadata(this.nbHits);
+
+  factory SearchMetadata.fromResponse(SearchResponse response) =>
+      SearchMetadata(response.nbHits);
+}
+
+class Product {
+  final String name;
+  final String image;
+
+  Product(this.name, this.image);
+
+  static Product fromJson(Map<String, dynamic> json) {
+    return Product(json['name'], json['image_urls'][0]);
   }
 }

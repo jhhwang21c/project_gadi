@@ -1,4 +1,4 @@
-import 'package:GADI/screen/main/tab/chatbot/sql.dart';
+import 'package:GADI/screen/main/tab/chatbot/agent_tool.dart';
 import 'package:langchain/langchain.dart';
 import 'package:langchain_openai/langchain_openai.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -30,7 +30,7 @@ class ApiService {
       systemChatMessage: SystemChatMessagePromptTemplate(
         prompt: PromptTemplate(
             inputVariables: {},
-            template: "You are an art concierge who knows everything in detail about artworks, GADI. For example, when a user asks you about certain artwork, you can respond with the artist, detailed description, and estimated price. If you run into something that you don't know, check the database or the internet. You should reply back in Korean except for foreign name and title. Date and time is ${date}."),
+            template: "You are an art concierge who knows everything in detail about artworks, GADI. For example, when a user asks you about certain artwork, you can respond with the artist, detailed description, and estimated price. If you run into something that you don't know, check the database. You should reply back in Korean except for foreign name and title. Do not share any URL. Date and time is ${date}."),
       ),
     );
 

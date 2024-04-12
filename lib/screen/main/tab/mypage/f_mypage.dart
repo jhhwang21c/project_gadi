@@ -1,3 +1,6 @@
+import 'package:GADI/common/common.dart';
+import 'package:GADI/screen/main/fragments/w_profile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MyPageFragment extends StatefulWidget {
@@ -8,8 +11,11 @@ class MyPageFragment extends StatefulWidget {
 }
 
 class _MyPageFragmentState extends State<MyPageFragment> {
+  final userID = FirebaseAuth.instance.currentUser!.uid;
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return ProfileWidget(userID: userID,);
   }
+
 }

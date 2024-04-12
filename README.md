@@ -1,16 +1,22 @@
 # GADI
 
-A new Flutter project.
+Your AI Art Concierge.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project is made with flutter.
+To run the app, use android studio with android emulator and run "flutter run main.dart" (with the proper files copied and dependencies installed).
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Detail
+This is a serverless app that utilizes Google Firebase / Firestore / Authentication. All interaction are real and not hard-coded.
+Most of the text data is stored on the Firestore Database, which is a NoSql db.
+Large data such as images or videos is stored on Firestore Stroage and passed as an URL to the Firestore Database.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Below is a short description of each tab items. More README files are in each directories.
+
+Home: user can access "Monthly Best", "Recommendation", etc. through the Home tab.
+Gallery: shows the list of the "starred" or favorite artworks.
+Gadi (chatbot): an AI chatbot that gives you tailored information on many artworks around the world. Powered by Langchain with GPT-4 and agents.
+Community: YouTube Shorts-like page, where users can scroll to watch streams of videos/images posted by other users.
+Profile: a page where user can check their user profile, followers/followees, and posts.

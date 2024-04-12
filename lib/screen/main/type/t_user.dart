@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AppUser {
   final String uid;
@@ -41,4 +42,42 @@ class AppUser {
       nickname: json['nickname'],
     );
   }
+
+}
+
+
+Future<Map<String, dynamic>> fetchUserData(userID) async {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  var userDoc = await _firestore.collection('users').doc(userID).get();
+  var userData = userDoc.data() as Map<String, dynamic>;
+
+  var followersDoc = await _firestore
+      .collection('users')
+      .doc(userID)
+      .collection('follow')
+      .doc('followers')
+      .get();
+  var followersData = followersDoc.data() as Map<String, dynamic>;
+  var followersCount = followersData['UID']?.length ?? 0;
+
+  var followingDoc = await _firestore
+      .collection('users')
+      .doc(userID)
+      .collection('follow')
+      .doc('following')
+      .get();
+  var followingData = followingDoc.data() as Map<String, dynamic>;
+  var followingCount = followingData['UID']?.length ?? 0;
+
+  // Check if current user's ID is in followers list
+  final currentUser = FirebaseAuth.instance.currentUser;
+  var isFollowing = followersData['UID'].contains(currentUser?.uid);
+
+  return {
+    'nickname': userData['nickname'],
+    'imageURL': userData['imageURL'],
+    'followers': followersCount,
+    'following': followingCount,
+    'isFollowing': isFollowing
+  };
 }

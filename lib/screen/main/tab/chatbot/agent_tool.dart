@@ -4,7 +4,7 @@ import 'package:langchain/langchain.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 
-FutureOr<String> runSqliteQuery(String queryText,
+FutureOr<String> runNoSqlQuery(String queryText,
     {Map<String, dynamic>? queryParameters, ToolOptions? options}) async {
   //final db = sqlite3.open('assets/art_auction.sqlite');
 
@@ -40,10 +40,10 @@ FutureOr<String> runSqliteQuery(String queryText,
 }
 
 final runQueryTool = Tool.fromFunction(
-  name: "runSqliteQuery",
+  name: "runNoSqlQuery",
   description:'''
 Run a Firestore query. Only answer asked data. Provide the collection path and optional query parameters. Firestore organizes data into documents within collections, not tables. Example fields in documents might include:
   title (String): title of artwork, artist (String): name in English, artist_in_korean (String): name in Korean, year (String): year of creation, currency (String): currency of price, price (int): estimated price, height (double): height, width (double): width, medium (String): medium, description (String): description, auction_name (String): name of the auction that the artwork is listed on, auction_date (String): scheduled auction date, total_views (int): total views of the artwork in the website, monthly_views (int): monthly views; 
   Specify query parameters as a Map<String, dynamic> representing field-value pairs for filtering documents.''',
-  func: runSqliteQuery,
+  func: runNoSqlQuery,
 );

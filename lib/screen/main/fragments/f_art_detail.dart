@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:GADI/common/common.dart';
-import 'package:GADI/screen/main/fragments/f_auctions.dart';
+import 'package:GADI/screen/main/tab/home/f_auctions.dart';
 import 'package:GADI/screen/main/tab/gallery/f_ar.dart';
 import 'package:GADI/screen/main/type/t_artwork.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

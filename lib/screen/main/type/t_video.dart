@@ -11,7 +11,7 @@ class Video {
   factory Video.fromFirestore(DocumentSnapshot doc) {
     Map data = doc.data() as Map;
     return Video(
-      videoURL: data['videoURL'] as String? ?? '', // Provide a default empty string if null
+      videoURL: data['videoURL'] as String? ?? '',
       title: data['title'] as String? ?? '',
       userID: data['userID'] as String? ?? '',
       nickname: data['nickname'] as String? ?? '',
