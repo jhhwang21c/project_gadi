@@ -1,0 +1,1 @@
+This is a page where user can check their user profile, followers/followees, and posts.

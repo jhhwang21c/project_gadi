@@ -1,6 +1,8 @@
 import 'package:GADI/screen/main/tab/tab_item.dart';
 import 'package:flutter/material.dart';
 
+// code for the bottom navigation bar
+
 class TabNavigator extends StatelessWidget {
   const TabNavigator({
     super.key,

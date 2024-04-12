@@ -6,6 +6,8 @@ import 'package:GADI/screen/main/tab/chatbot/f_chatbot.dart';
 import 'package:GADI/screen/main/tab/mypage/f_mypage.dart';
 import 'package:flutter/material.dart';
 
+// items that are shown in the bottom navigation bar. each item leads to a new page/tab
+
 enum TabItem {
   home(Icons.home_outlined, 'Home', HomeFragment()),
   ranking(Icons.view_in_ar, 'Gallery', GalleryFragment()),

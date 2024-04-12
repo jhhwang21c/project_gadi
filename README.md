@@ -16,7 +16,7 @@ Large data such as images or videos is stored on Firestore Stroage and passed as
 Below is a short description of each tab items. More README files are in each directories.
 
 - Home: user can access "Monthly Best", "Recommendation", etc. through the Home tab.
-- Gallery: shows the list of the "starred" or favorite artworks.
+- Gallery: shows the list of the "starred" or favorite artworks. Users can also see AR rendering of these artworks.
 - Gadi (chatbot): an AI chatbot that gives you tailored information on many artworks around the world. Powered by Langchain with GPT-4 and agents.
 - Community: YouTube Shorts-like page, where users can scroll to watch streams of videos/images posted by other users.
 - Profile: a page where user can check their user profile, followers/followees, and posts.
